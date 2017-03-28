@@ -27,4 +27,14 @@
 
 assht ~$
 </pre>
+
+<pre>
+Create a payload:
+Windows;
+Linux;
+Mac;
+Android;
+List_All;
+and more to come! in the new update
+</pre>
 ![alt tag](http://i.imgur.com/ELpgHFd.png)
