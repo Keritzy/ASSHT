@@ -1,5 +1,19 @@
 # ASSHT
 #Automated Simple Small Hacking tool
+<p>
+GETTING STARTED!
+to avoid errors follow these commands:
+</p>
+<pre>
+chmod 777 *
+</pre>
+<pre>
+sudo ./install.sh
+</pre>
+<pre>
+sudo ./ASSHT
+</pre>
+
 <pre>
     █████╗ ███████╗███████╗██╗  ██╗████████╗
    ██╔══██╗██╔════╝██╔════╝██║  ██║╚══██╔══╝
